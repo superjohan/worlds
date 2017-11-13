@@ -8,10 +8,12 @@
 
 import UIKit
 import AVFoundation
+import SceneKit
 
 class ViewController: UIViewController {
     let audioPlayer: AVAudioPlayer
     let startButton: UIButton
+    let sceneView: SCNView
     
     // MARK: Private
     
@@ -42,6 +44,8 @@ class ViewController: UIViewController {
         // FIXME: temporary
 //        self.startButton.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
         self.startButton.isHidden = true
+        
+        self.sceneView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,7 +73,11 @@ class ViewController: UIViewController {
         self.startButton = UIButton.init(type: UIButtonType.custom)
         self.startButton.setTitle("start", for: UIControlState.normal)
 
+        self.sceneView = SCNView(frame: CGRect.zero)
+        
         super.init(nibName: nil, bundle: nil)
+        
+        self.view.addSubview(self.sceneView)
         
         self.startButton.addTarget(self, action: #selector(startButtonTouched), for: UIControlEvents.touchUpInside)
         self.view.addSubview(self.startButton)
