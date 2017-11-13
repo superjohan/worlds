@@ -14,7 +14,10 @@ class ViewController: UIViewController {
     let audioPlayer: AVAudioPlayer
     let startButton: UIButton
     let sceneView: SCNView
+    let camera: SCNNode
     
+    var boxes: [SCNNode]
+
     // MARK: Private
     
     @objc private func startButtonTouched(button: UIButton) {
@@ -36,6 +39,34 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.black
+        
+        let scene = SCNScene()
+        
+        let ambientLightNode = SCNNode()
+        ambientLightNode.light = SCNLight()
+        ambientLightNode.light!.type = SCNLight.LightType.ambient
+        ambientLightNode.light!.color = UIColor(white: 0.5, alpha: 1.0)
+        scene.rootNode.addChildNode(ambientLightNode)
+        
+        let omniLightNode = SCNNode()
+        omniLightNode.light = SCNLight()
+        omniLightNode.light!.type = SCNLight.LightType.omni
+        omniLightNode.light!.color = UIColor(white: 0.75, alpha: 1.0)
+        omniLightNode.position = SCNVector3Make(0, 50, 50)
+        scene.rootNode.addChildNode(omniLightNode)
+        
+        scene.rootNode.addChildNode(self.camera)
+//        self.sceneView.allowsCameraControl = true
+
+        for i in 0...10 {
+            let box = SCNBox(width: 10, height: 10, length: 10, chamferRadius: 0)
+            let boxNode = SCNNode(geometry: box)
+            boxNode.position = SCNVector3Make(Float(-100 + (i * 20)), 0, 0)
+            self.boxes.append(boxNode)
+            scene.rootNode.addChildNode(boxNode)
+        }
+        
+        self.sceneView.scene = scene
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +83,12 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
 
         self.start()
+
+        self.camera.runAction(SCNAction.move(to: SCNVector3Make(0, 10, 50), duration: 10))
+        
+        for boxNode in self.boxes {
+            boxNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 10, y: 10, z: 10, duration: 10)))
+        }
     }
     
     override func prefersHomeIndicatorAutoHidden() -> Bool {
@@ -75,6 +112,12 @@ class ViewController: UIViewController {
 
         self.sceneView = SCNView(frame: CGRect.zero)
         
+        self.boxes = []
+        
+        self.camera = SCNNode()
+        self.camera.camera = SCNCamera()
+        self.camera.position = SCNVector3Make(0, 0, 25)
+
         super.init(nibName: nil, bundle: nil)
         
         self.view.addSubview(self.sceneView)
