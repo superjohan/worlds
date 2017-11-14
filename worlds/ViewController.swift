@@ -31,6 +31,16 @@ class ViewController: UIViewController {
     
     private func start() {
         self.audioPlayer.play()
+        
+        UIView.animate(withDuration: 10, animations: {
+            self.sceneView.alpha = 1.0
+        })
+
+        self.camera.runAction(SCNAction.move(to: SCNVector3Make(0, 10, 50), duration: 10))
+        
+        for boxNode in self.boxes {
+            boxNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 10, y: 10, z: 10, duration: 10)))
+        }
     }
     
     // MARK: UIViewController
@@ -38,6 +48,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.audioPlayer.prepareToPlay()
+        
+        self.sceneView.alpha = 0
         self.view.backgroundColor = UIColor.black
         
         let scene = SCNScene()
@@ -73,22 +86,14 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // FIXME: temporary
-//        self.startButton.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-        self.startButton.isHidden = true
-        
+        self.startButton.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
         self.sceneView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        self.start()
-
-        self.camera.runAction(SCNAction.move(to: SCNVector3Make(0, 10, 50), duration: 10))
-        
-        for boxNode in self.boxes {
-            boxNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 10, y: 10, z: 10, duration: 10)))
-        }
+//        self.start()
     }
     
     override func prefersHomeIndicatorAutoHidden() -> Bool {
@@ -102,14 +107,14 @@ class ViewController: UIViewController {
             }
             
             self.audioPlayer = audioPlayer
-            self.audioPlayer.prepareToPlay()
         } else {
             abort()
         }
         
         self.startButton = UIButton.init(type: UIButtonType.custom)
         self.startButton.setTitle("start", for: UIControlState.normal)
-
+        self.startButton.backgroundColor = UIColor.black
+        
         self.sceneView = SCNView(frame: CGRect.zero)
         
         self.boxes = []
