@@ -39,7 +39,16 @@ class ViewController: UIViewController {
         self.camera.runAction(SCNAction.move(to: SCNVector3Make(0, 10, 50), duration: 10))
         
         for boxNode in self.boxes {
-            boxNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 10, y: 10, z: 10, duration: 10)))
+            boxNode.runAction(
+                SCNAction.repeatForever(
+                    SCNAction.rotateBy(
+                        x: CGFloat(-10 + Int(arc4random_uniform(20))),
+                        y: CGFloat(-10 + Int(arc4random_uniform(20))),
+                        z: CGFloat(-10 + Int(arc4random_uniform(20))),
+                        duration: 10
+                    )
+                )
+            )
         }
     }
     
