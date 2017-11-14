@@ -45,7 +45,7 @@ class ViewController: UIViewController {
                         x: CGFloat(-10 + Int(arc4random_uniform(20))),
                         y: CGFloat(-10 + Int(arc4random_uniform(20))),
                         z: CGFloat(-10 + Int(arc4random_uniform(20))),
-                        duration: 10
+                        duration: TimeInterval(8 + arc4random_uniform(5))
                     )
                 )
             )
