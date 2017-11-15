@@ -80,12 +80,29 @@ class ViewController: UIViewController {
         scene.rootNode.addChildNode(self.camera)
 //        self.sceneView.allowsCameraControl = true
 
-        for i in 0...10 {
-            let box = SCNBox(width: 10, height: 10, length: 10, chamferRadius: 0)
-            let boxNode = SCNNode(geometry: box)
-            boxNode.position = SCNVector3Make(Float(-100 + (i * 20)), 0, 0)
-            self.boxes.append(boxNode)
-            scene.rootNode.addChildNode(boxNode)
+        let boxCount = 32
+        
+        for i in 0...boxCount {
+            let ratio = sin((Float.pi) * (Float(i) / Float(boxCount)))
+            let half = Float(boxCount) / Float(2)
+            let ratio2 = sin((Float.pi / 2.0) * ((half - Float(i)) / half))
+            let radius = 50.0 * ratio
+            let boxesPerRow = Int(ratio * Float(boxCount))
+            
+            for j in 0..<boxesPerRow {
+                let box = SCNBox(width: 10, height: 10, length: 10, chamferRadius: 0)
+                let boxNode = SCNNode(geometry: box)
+                let angle = (Float(j) / Float(boxesPerRow)) * (Float.pi * 2)
+
+                boxNode.position = SCNVector3Make(
+                    sin(angle) * radius,
+                    50.0 * ratio2,
+                    cos(angle) * radius
+                )
+                
+                self.boxes.append(boxNode)
+                scene.rootNode.addChildNode(boxNode)
+            }
         }
         
         self.sceneView.scene = scene
