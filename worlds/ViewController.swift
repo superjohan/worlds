@@ -41,15 +41,7 @@ class ViewController: UIViewController {
         self.camera.runAction(cameraRotateAction)
     }
     
-    private func start() {
-        self.audioPlayer.play()
-        
-        UIView.animate(withDuration: 10, animations: {
-            self.sceneView.alpha = 1.0
-        })
-
-        moveCamera()
-        
+    fileprivate func rotateSphereBoxes() {
         for boxNode in self.boxes {
             boxNode.runAction(
                 SCNAction.repeatForever(
@@ -62,6 +54,17 @@ class ViewController: UIViewController {
                 )
             )
         }
+    }
+    
+    private func start() {
+        self.audioPlayer.play()
+        
+        UIView.animate(withDuration: 10, animations: {
+            self.sceneView.alpha = 1.0
+        })
+
+        moveCamera()
+        rotateSphereBoxes()
     }
     
     // MARK: UIViewController
