@@ -29,6 +29,18 @@ class ViewController: UIViewController {
         })
     }
     
+    fileprivate func performCameraActions() {
+        let cameraDuration = TimeInterval(120)
+        
+        let cameraMoveAction = SCNAction.move(to: SCNVector3Make(0, 30, 200), duration: cameraDuration)
+        cameraMoveAction.timingMode = SCNActionTimingMode.easeInEaseOut
+        self.camera.runAction(cameraMoveAction)
+        
+        let cameraRotateAction = SCNAction.rotateBy(x: -0.15, y: 0, z: 0, duration: cameraDuration)
+        cameraRotateAction.timingMode = cameraMoveAction.timingMode
+        self.camera.runAction(cameraRotateAction)
+    }
+    
     private func start() {
         self.audioPlayer.play()
         
@@ -36,7 +48,7 @@ class ViewController: UIViewController {
             self.sceneView.alpha = 1.0
         })
 
-        self.camera.runAction(SCNAction.move(to: SCNVector3Make(0, 10, 50), duration: 10))
+        performCameraActions()
         
         for boxNode in self.boxes {
             boxNode.runAction(
@@ -148,8 +160,10 @@ class ViewController: UIViewController {
         self.boxes = []
         
         self.camera = SCNNode()
-        self.camera.camera = SCNCamera()
-        self.camera.position = SCNVector3Make(0, 0, 25)
+        let camera = SCNCamera()
+        camera.zFar = 300
+        self.camera.camera = camera // lol
+        self.camera.position = SCNVector3Make(0, 0, 58)
 
         super.init(nibName: nil, bundle: nil)
         
