@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         })
     }
     
-    fileprivate func performCameraActions() {
+    fileprivate func moveCamera() {
         let cameraDuration = TimeInterval(120)
         
         let cameraMoveAction = SCNAction.move(to: SCNVector3Make(0, 30, 200), duration: cameraDuration)
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
             self.sceneView.alpha = 1.0
         })
 
-        performCameraActions()
+        moveCamera()
         
         for boxNode in self.boxes {
             boxNode.runAction(
