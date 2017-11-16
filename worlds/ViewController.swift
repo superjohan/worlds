@@ -165,6 +165,8 @@ class ViewController: UIViewController {
         self.camera = SCNNode()
         let camera = SCNCamera()
         camera.zFar = 300
+        camera.vignettingIntensity = 1
+        camera.vignettingPower = 1
         self.camera.camera = camera // lol
         self.camera.position = SCNVector3Make(0, 0, 58)
 
