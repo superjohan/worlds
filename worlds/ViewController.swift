@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import SceneKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AVAudioPlayerDelegate {
     let audioPlayer: AVAudioPlayer
     let startButton: UIButton
     let sceneView: SCNView
@@ -81,12 +81,21 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: AVAudioPlayerDelegate
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if (flag) {
+            self.sceneView.isHidden = true
+        }
+    }
+    
     // MARK: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.audioPlayer.prepareToPlay()
+        self.audioPlayer.delegate = self
         
         self.sceneView.alpha = 0
         self.view.backgroundColor = UIColor.black
