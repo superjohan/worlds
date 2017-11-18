@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     }
     
     fileprivate func moveCamera() {
-        let cameraDuration = TimeInterval(120)
+        let cameraDuration = TimeInterval(160)
         
         let cameraMoveAction = SCNAction.move(to: SCNVector3Make(0, 30, 200), duration: cameraDuration)
         cameraMoveAction.timingMode = SCNActionTimingMode.easeIn
