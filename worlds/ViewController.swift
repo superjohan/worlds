@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     // MARK: Private
     
     @objc private func startButtonTouched(button: UIButton) {
-        UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 4, animations: {
             self.startButton.alpha = 0
         }, completion: { _ in
             self.startButton.removeFromSuperview()
