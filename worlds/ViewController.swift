@@ -19,7 +19,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     var boxes: [SCNNode]
 
-    // MARK: Private
+    // MARK: - Private
     
     @objc private func startButtonTouched(button: UIButton) {
         UIView.animate(withDuration: 4, animations: {
@@ -81,7 +81,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    // MARK: AVAudioPlayerDelegate
+    // MARK: - AVAudioPlayerDelegate
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if (flag) {
@@ -89,7 +89,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    // MARK: UIViewController
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
