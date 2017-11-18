@@ -92,6 +92,7 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor.black
         
         let scene = SCNScene()
+        scene.background.contents = UIColor.black
         
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
