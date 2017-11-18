@@ -119,7 +119,7 @@ class ViewController: UIViewController {
             skybox.height = length
             skybox.length = length
             
-            skybox.firstMaterial?.diffuse.contents = i == 0 ? UIColor.green : UIColor.red
+            skybox.firstMaterial?.diffuse.contents = UIImage.init(named: "texture1")
             skybox.firstMaterial?.isDoubleSided = true
             
             scene.rootNode.addChildNode(skyboxNode)
