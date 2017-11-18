@@ -159,8 +159,8 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // FIXME: temporary
-        self.startButton.isHidden = true
-//        self.startButton.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+//        self.startButton.isHidden = true
+        self.startButton.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
         
         self.sceneView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
     }
@@ -168,7 +168,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        self.start()
+//        self.start()
     }
     
     override func prefersHomeIndicatorAutoHidden() -> Bool {
