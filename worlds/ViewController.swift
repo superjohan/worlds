@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         let cameraDuration = TimeInterval(120)
         
         let cameraMoveAction = SCNAction.move(to: SCNVector3Make(0, 30, 200), duration: cameraDuration)
-        cameraMoveAction.timingMode = SCNActionTimingMode.easeInEaseOut
+        cameraMoveAction.timingMode = SCNActionTimingMode.easeIn
         self.camera.runAction(cameraMoveAction)
         
         let cameraRotateAction = SCNAction.rotateBy(x: -0.15, y: 0, z: 0, duration: cameraDuration)
