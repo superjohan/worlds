@@ -188,7 +188,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         
         self.sceneView.scene = createScene()
         
-        self.endView.backgroundColor = UIColor.white
+        self.endView.backgroundColor = UIColor(white: 0.1, alpha: 1.0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
