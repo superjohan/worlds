@@ -111,8 +111,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         scene.rootNode.addChildNode(omniLightNode)
         
         scene.rootNode.addChildNode(self.camera)
-
-        var i = 0 // this whole thing is for debugging purposes. should be a texture actually or something
         
         for skyboxNode in self.skyBoxes {
             guard let skybox = skyboxNode.geometry as! SCNBox? else { abort() }
@@ -126,8 +124,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             skybox.firstMaterial?.isDoubleSided = true
             
             scene.rootNode.addChildNode(skyboxNode)
-            
-            i += 1
         }
         
         let boxCount = 32
