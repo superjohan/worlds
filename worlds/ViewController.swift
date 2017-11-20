@@ -103,12 +103,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         let scene = SCNScene()
         scene.background.contents = UIColor.black
         
-        let ambientLightNode = SCNNode()
-        ambientLightNode.light = SCNLight()
-        ambientLightNode.light!.type = SCNLight.LightType.ambient
-        ambientLightNode.light!.color = UIColor(white: 0.5, alpha: 1.0)
-        scene.rootNode.addChildNode(ambientLightNode)
-        
         let omniLightNode = SCNNode()
         omniLightNode.light = SCNLight()
         omniLightNode.light!.type = SCNLight.LightType.omni
