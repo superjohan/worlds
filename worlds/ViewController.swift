@@ -81,19 +81,16 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
 
-    fileprivate func createScene() -> SCNScene {
-        let scene = SCNScene()
-        scene.background.contents = UIColor.black
-        
+    fileprivate func configureLight(_ scene: SCNScene) {
         let omniLightNode = SCNNode()
         omniLightNode.light = SCNLight()
         omniLightNode.light?.type = SCNLight.LightType.omni
         omniLightNode.light?.color = UIColor(white: 1.0, alpha: 1.0)
         omniLightNode.position = SCNVector3Make(0, -60, 60)
         scene.rootNode.addChildNode(omniLightNode)
-        
-        scene.rootNode.addChildNode(self.camera)
-        
+    }
+    
+    fileprivate func configureSkyboxes(_ scene: SCNScene) {
         for skyboxNode in self.skyBoxes {
             guard let skybox = skyboxNode.geometry as! SCNBox? else { abort() }
             
@@ -107,7 +104,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             
             scene.rootNode.addChildNode(skyboxNode)
         }
-        
+    }
+    
+    fileprivate func configureSphereBoxes(_ scene: SCNScene) {
         let boxCount = 32
         
         for i in 0...boxCount {
@@ -134,6 +133,17 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
                 scene.rootNode.addChildNode(boxNode)
             }
         }
+    }
+    
+    fileprivate func createScene() -> SCNScene {
+        let scene = SCNScene()
+        scene.background.contents = UIColor.black
+        
+        scene.rootNode.addChildNode(self.camera)
+
+        configureLight(scene)
+        configureSkyboxes(scene)
+        configureSphereBoxes(scene)
         
         return scene
     }
