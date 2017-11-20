@@ -57,7 +57,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    private func start() {
+    fileprivate func start() {
         self.audioPlayer.play()
         
         UIView.animate(withDuration: 10, animations: {
