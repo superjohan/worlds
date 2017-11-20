@@ -42,6 +42,21 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         self.camera.runAction(cameraRotateAction)
     }
     
+    fileprivate func rotateSkyboxes() {
+        for skybox in self.skyBoxes {
+            skybox.runAction(
+                SCNAction.repeatForever(
+                    SCNAction.rotateBy(
+                        x: CGFloat(-10 + Int(arc4random_uniform(20))),
+                        y: CGFloat(-10 + Int(arc4random_uniform(20))),
+                        z: CGFloat(-10 + Int(arc4random_uniform(20))),
+                        duration: TimeInterval(18 + arc4random_uniform(5))
+                    )
+                )
+            )
+        }
+    }
+    
     fileprivate func rotateSphereBoxes() {
         for boxNode in self.boxes {
             boxNode.runAction(
@@ -65,20 +80,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         })
 
         moveCamera()
+        rotateSkyboxes()
         rotateSphereBoxes()
-        
-        for skybox in self.skyBoxes {
-            skybox.runAction(
-                SCNAction.repeatForever(
-                    SCNAction.rotateBy(
-                        x: CGFloat(-10 + Int(arc4random_uniform(20))),
-                        y: CGFloat(-10 + Int(arc4random_uniform(20))),
-                        z: CGFloat(-10 + Int(arc4random_uniform(20))),
-                        duration: TimeInterval(18 + arc4random_uniform(5))
-                    )
-                )
-            )
-        }
     }
 
     fileprivate func configureLight(_ scene: SCNScene) {
