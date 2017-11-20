@@ -16,7 +16,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     let sceneView: SCNView
     let camera: SCNNode
     let skyBoxes: [SCNNode]
-    
+    let endView: UIView = UIView.init(frame: CGRect.zero)
+
     var boxes: [SCNNode]
 
     // MARK: - Private
@@ -170,6 +171,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if (flag) {
             self.sceneView.isHidden = true
+            self.endView.isHidden = false
         }
     }
     
@@ -185,6 +187,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         self.view.backgroundColor = UIColor.black
         
         self.sceneView.scene = createScene()
+        
+        self.endView.backgroundColor = UIColor.white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -192,6 +196,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         
         self.startButton.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
         self.sceneView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+        self.endView.frame = CGRect(
+            x: (self.view.bounds.size.width / 2) - 1,
+            y: (self.view.bounds.size.height / 2) - 1,
+            width: 2,
+            height: 2
+        )
     }
         
     override func prefersHomeIndicatorAutoHidden() -> Bool {
@@ -228,6 +238,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         self.skyBoxes = [ SCNNode(geometry: SCNBox()), SCNNode(geometry: SCNBox()) ]
         
         super.init(nibName: nil, bundle: nil)
+        
+        self.endView.isHidden = true
+        self.view.addSubview(self.endView)
         
         self.view.addSubview(self.sceneView)
         
