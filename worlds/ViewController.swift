@@ -11,12 +11,15 @@ import AVFoundation
 import SceneKit
 
 class ViewController: UIViewController, AVAudioPlayerDelegate {
+    let textDuration = 115
+    
     let audioPlayer: AVAudioPlayer
     let startButton: UIButton
     let sceneView: SCNView
     let camera: SCNNode
     let skyBoxes: [SCNNode]
     let endView: UIView = UIView.init(frame: CGRect.zero)
+    let labels: [UILabel]
 
     var boxes: [SCNNode]
 
@@ -86,6 +89,58 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    fileprivate func updateLabelContent() {
+        let tickLength = (60.0 / 140.0) * 0.75
+        var counter: Double = 0
+        
+        while counter < Double(self.textDuration) {
+            counter += tickLength
+            
+            // performSelector doesn't throttle, unlike DispatchQueue, so sue me
+            perform(#selector(scheduleLabelAnimation), with: NSNumber.init(value: counter), afterDelay: counter)
+        }
+    }
+    
+    @objc
+    fileprivate func scheduleLabelAnimation(counterNumber: NSNumber) {
+        let shouldShowLabel = arc4random_uniform(2) == 0 ? true : false
+        if !shouldShowLabel {
+            return
+        }
+
+        let counter = counterNumber.doubleValue
+        let textCount = Int(((counter / Double(self.textDuration)) * 9) + 1)
+        print("\(textCount), \(counter)")
+        
+        var texts = [ "", "", "", "", "", "", "", "", "" ]
+        
+        for _ in 0..<textCount {
+            let index = Int(arc4random_uniform(9))
+            texts[index] = "piss"
+        }
+        
+        for label in self.labels {
+            label.alpha = 1
+            
+            if let index = self.labels.index(of: label) {
+                label.text = "\(texts[index * 3])\n"
+                    + "\(texts[(index * 3) + 1])\n"
+                    + "\(texts[(index * 3) + 2])"
+            }
+        }
+
+        let shouldFadeOutLabel = arc4random_uniform(2) == 0 ? true : false
+        if !shouldFadeOutLabel {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            for label in self.labels {
+                label.alpha = 0
+            }
+        })
+    }
+    
     fileprivate func start() {
         self.audioPlayer.play()
         
@@ -97,6 +152,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         rotateSkyboxes()
         rotateSphereBoxes()
         crunchEnding()
+        updateLabelContent()
     }
 
     fileprivate func configureLight(_ scene: SCNScene) {
@@ -202,6 +258,19 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             width: 2,
             height: 2
         )
+        
+        let padding: CGFloat = 40
+        
+        for label in self.labels {
+            label.frame = CGRect(
+                x: padding,
+                y: padding,
+                width: self.view.bounds.size.width - (padding * 2),
+                height: self.view.bounds.size.height - (padding * 2)
+            )
+            
+            label.font = UIFont(name: "HelveticaNeue-Bold", size: self.view.bounds.size.height / 5)
+        }
     }
         
     override func prefersHomeIndicatorAutoHidden() -> Bool {
@@ -237,6 +306,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         
         self.skyBoxes = [ SCNNode(geometry: SCNBox()), SCNNode(geometry: SCNBox()) ]
         
+        self.labels = [
+            UILabel.init(frame: CGRect.zero),
+            UILabel.init(frame: CGRect.zero),
+            UILabel.init(frame: CGRect.zero)
+        ]
+        
         super.init(nibName: nil, bundle: nil)
         
         self.endView.isHidden = true
@@ -246,6 +321,24 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         
         self.startButton.addTarget(self, action: #selector(startButtonTouched), for: UIControlEvents.touchUpInside)
         self.view.addSubview(self.startButton)
+        
+        for label in self.labels {
+            label.numberOfLines = 0
+            label.textColor = UIColor.init(white: 0.75, alpha: 0.75)
+            label.backgroundColor = UIColor.clear
+            label.lineBreakMode = NSLineBreakMode.byClipping
+            
+            let index = self.labels.index(of: label)
+            if index == 0 {
+                label.textAlignment = NSTextAlignment.left
+            } else if index == 1 {
+                label.textAlignment = NSTextAlignment.center
+            } else if index == 2 {
+                label.textAlignment = NSTextAlignment.right
+            }
+            
+            self.view.addSubview(label)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
