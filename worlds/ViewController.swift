@@ -105,8 +105,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         
         let omniLightNode = SCNNode()
         omniLightNode.light = SCNLight()
-        omniLightNode.light!.type = SCNLight.LightType.omni
-        omniLightNode.light!.color = UIColor(white: 1.0, alpha: 1.0)
+        omniLightNode.light?.type = SCNLight.LightType.omni
+        omniLightNode.light?.color = UIColor(white: 1.0, alpha: 1.0)
         omniLightNode.position = SCNVector3Make(0, -60, 60)
         scene.rootNode.addChildNode(omniLightNode)
         
