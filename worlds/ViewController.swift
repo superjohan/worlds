@@ -110,7 +110,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
 
         let counter = counterNumber.doubleValue
         let textCount = Int(((counter / Double(self.textDuration)) * 9) + 1)
-        print("\(textCount), \(counter)")
         
         var texts = [ "", "", "", "", "", "", "", "", "" ]
         
