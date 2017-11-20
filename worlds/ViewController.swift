@@ -156,6 +156,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
                     cos(angle) * radius
                 )
                 
+                box.firstMaterial?.diffuse.contents = UIColor.init(white: 1.0, alpha: 1.0)
+
                 self.boxes.append(boxNode)
                 scene.rootNode.addChildNode(boxNode)
             }
