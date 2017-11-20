@@ -72,6 +72,19 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    fileprivate func crunchEnding() {
+        let waitAction = SCNAction.wait(duration: 118)
+        
+        let moveAction = SCNAction.move(to: SCNVector3Make(0, 0, 0), duration: 1)
+        moveAction.timingMode = SCNActionTimingMode.easeIn
+        
+        let sequence = SCNAction.sequence([ waitAction, moveAction ])
+        
+        for box in self.boxes {
+            box.runAction(sequence)
+        }
+    }
+    
     fileprivate func start() {
         self.audioPlayer.play()
         
@@ -82,6 +95,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         moveCamera()
         rotateSkyboxes()
         rotateSphereBoxes()
+        crunchEnding()
     }
 
     fileprivate func configureLight(_ scene: SCNScene) {
