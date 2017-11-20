@@ -268,7 +268,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
                 height: self.view.bounds.size.height - (padding * 2)
             )
             
-            label.font = UIFont(name: "HelveticaNeue-Bold", size: self.view.bounds.size.height / 5)
+            label.font = UIFont(name: "HelveticaNeue-Bold", size: self.view.bounds.size.height / 4.6)
         }
     }
         
