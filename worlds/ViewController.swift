@@ -80,26 +80,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             )
         }
     }
-    
-    // MARK: - AVAudioPlayerDelegate
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if (flag) {
-            self.sceneView.isHidden = true
-        }
-    }
-    
-    // MARK: - UIViewController
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.audioPlayer.prepareToPlay()
-        self.audioPlayer.delegate = self
-        
-        self.sceneView.alpha = 0
-        self.view.backgroundColor = UIColor.black
-        
+
+    fileprivate func createScene() -> SCNScene {
         let scene = SCNScene()
         scene.background.contents = UIColor.black
         
@@ -139,7 +121,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
                 let box = SCNBox(width: 10, height: 10, length: 10, chamferRadius: 0)
                 let boxNode = SCNNode(geometry: box)
                 let angle = (Float(j) / Float(boxesPerRow)) * (Float.pi * 2)
-
+                
                 boxNode.position = SCNVector3Make(
                     sin(angle) * radius,
                     50.0 * ratio2,
@@ -147,13 +129,35 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
                 )
                 
                 box.firstMaterial?.diffuse.contents = UIColor.init(white: 1.0, alpha: 1.0)
-
+                
                 self.boxes.append(boxNode)
                 scene.rootNode.addChildNode(boxNode)
             }
         }
         
-        self.sceneView.scene = scene
+        return scene
+    }
+    
+    // MARK: - AVAudioPlayerDelegate
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if (flag) {
+            self.sceneView.isHidden = true
+        }
+    }
+    
+    // MARK: - UIViewController
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.audioPlayer.prepareToPlay()
+        self.audioPlayer.delegate = self
+        
+        self.sceneView.alpha = 0
+        self.view.backgroundColor = UIColor.black
+        
+        self.sceneView.scene = createScene()
     }
     
     override func viewWillAppear(_ animated: Bool) {
