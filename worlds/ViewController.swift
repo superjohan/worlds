@@ -297,8 +297,19 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             abort()
         }
         
+        let startButtonText =
+            "\"worlds\"\n" +
+            "by dekadence\n" +
+            "\n" +
+            "programming and music by ricky martin\n" +
+            "\n" +
+            "presented at vortex 2017\n" +
+            "\n" +
+            "tap anywhere to start"
         self.startButton = UIButton.init(type: UIButtonType.custom)
-        self.startButton.setTitle("start", for: UIControlState.normal)
+        self.startButton.setTitle(startButtonText, for: UIControlState.normal)
+        self.startButton.titleLabel?.numberOfLines = 0
+        self.startButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         self.startButton.backgroundColor = UIColor.black
         
         self.sceneView = SCNView(frame: CGRect.zero)
