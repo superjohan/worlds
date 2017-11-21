@@ -12,7 +12,8 @@ import SceneKit
 
 class ViewController: UIViewController, AVAudioPlayerDelegate {
     let textDuration = 115
-    
+    let textSource = "Freeman and slave, patrician and plebeian, lord and serf, guild-master and journeyman, in a word, oppressor and oppressed, stood in constant opposition to one another, carried on an uninterrupted, now hidden, now open fight, a fight that each time ended, either in a revolutionary reconstitution of society at large, or in the common ruin of the contending classes. In the earlier epochs of history, we find almost everywhere a complicated arrangement of society into various orders, a manifold gradation of social rank. In ancient Rome we have patricians, knights, plebeians, slaves; in the Middle Ages, feudal lords, vassals, guild-masters, journeymen, apprentices, serfs; in almost all of these classes, again, subordinate gradations. The modern bourgeois society that has sprouted from the ruins of feudal society has not done away with class antagonisms. It has but established new classes, new conditions of oppression, new forms of struggle in place of the old ones."
+
     let audioPlayer: AVAudioPlayer
     let startButton: UIButton
     let sceneView: SCNView
@@ -20,7 +21,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     let skyBoxes: [SCNNode]
     let endView: UIView = UIView.init(frame: CGRect.zero)
     let labels: [UILabel]
-
+    let words: [String]
+    
     var boxes: [SCNNode]
 
     // MARK: - Private
@@ -126,7 +128,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         
         for _ in 0..<textCount {
             let index = Int(arc4random_uniform(9))
-            texts[index] = "piss"
+            let textIndex = Int(arc4random_uniform(UInt32(self.words.count)))
+            texts[index] = self.words[textIndex]
         }
         
         for label in self.labels {
@@ -317,6 +320,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             UILabel.init(frame: CGRect.zero),
             UILabel.init(frame: CGRect.zero)
         ]
+        
+        self.words = self.textSource.components(separatedBy: " ")
         
         super.init(nibName: nil, bundle: nil)
         
