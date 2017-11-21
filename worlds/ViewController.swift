@@ -101,6 +101,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    fileprivate func fadeOutLabels() {
+        UIView.animate(withDuration: 0.3, animations: {
+            for label in self.labels {
+                label.alpha = 0
+            }
+        })
+    }
+    
     @objc
     fileprivate func scheduleLabelAnimation(counterNumber: NSNumber) {
         let shouldShowLabel = arc4random_uniform(2) == 0 ? true : false
@@ -133,11 +141,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             return
         }
         
-        UIView.animate(withDuration: 0.3, animations: {
-            for label in self.labels {
-                label.alpha = 0
-            }
-        })
+        fadeOutLabels()
     }
     
     fileprivate func start() {
