@@ -99,8 +99,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             // performSelector doesn't throttle, unlike DispatchQueue, so sue me
             perform(#selector(scheduleLabelAnimation), with: NSNumber.init(value: counter), afterDelay: counter)
         }
+        
+        perform(#selector(fadeOutLabels), with: nil, afterDelay: counter + tickLength)
     }
     
+    @objc
     fileprivate func fadeOutLabels() {
         UIView.animate(withDuration: 0.3, animations: {
             for label in self.labels {
