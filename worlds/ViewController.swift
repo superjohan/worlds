@@ -3,7 +3,7 @@
 //  worlds
 //
 //  Created by Johan Halin on 17/10/2017.
-//  Copyright © 2017 Dekadence. All rights reserved.
+//  Copyright © 2017 Dekadence.
 //
 
 import UIKit
