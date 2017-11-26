@@ -2,6 +2,8 @@
 
 a demo for iphone by dekadence.
 
+[watch the demo on youtube!](https://www.youtube.com/watch?v=cI9C751w01E)
+
 programming and music by ricky martin.
 words by karl marx and friedrich engels.
 
