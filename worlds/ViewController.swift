@@ -55,7 +55,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         let cameraDuration = TimeInterval(160)
         
         self.camera.position = SCNVector3Make(0, 0, 58)
-
+        self.camera.rotation = SCNVector4Zero
+        
         let cameraMoveAction = SCNAction.move(to: SCNVector3Make(0, 30, 200), duration: cameraDuration)
         cameraMoveAction.timingMode = SCNActionTimingMode.easeIn
         self.camera.runAction(cameraMoveAction)
