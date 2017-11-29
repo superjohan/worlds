@@ -35,7 +35,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     let words: [String]
     
     var boxes: [SCNNode]
-
+    var boxPositions: [SCNVector3]
+    
     // MARK: - Private
     
     @objc private func startButtonTouched(button: UIButton) {
@@ -180,6 +181,10 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             label.text = ""
         }
         
+        for i in 0..<self.boxes.count {
+            self.boxes[i].position = self.boxPositions[i]
+        }
+        
         moveCamera()
         rotateSkyboxes()
         rotateSphereBoxes()
@@ -232,6 +237,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
                     50.0 * ratio2,
                     cos(angle) * radius
                 )
+                
+                self.boxPositions.append(boxNode.position)
                 
                 box.firstMaterial?.diffuse.contents = UIColor.init(white: 1.0, alpha: 1.0)
                 
@@ -348,6 +355,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         self.sceneView = SCNView(frame: CGRect.zero)
         
         self.boxes = []
+        self.boxPositions = []
         
         self.camera = SCNNode()
         let camera = SCNCamera()
