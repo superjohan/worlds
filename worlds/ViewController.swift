@@ -42,6 +42,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         UIView.animate(withDuration: 4, animations: {
             self.startButton.alpha = 0
         }, completion: { _ in
+            self.endView.isHidden = true
+            
             self.startButton.removeFromSuperview()
             self.start()
         })
@@ -50,6 +52,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     fileprivate func moveCamera() {
         let cameraDuration = TimeInterval(160)
         
+        self.camera.position = SCNVector3Make(0, 0, 58)
+
         let cameraMoveAction = SCNAction.move(to: SCNVector3Make(0, 30, 200), duration: cameraDuration)
         cameraMoveAction.timingMode = SCNActionTimingMode.easeIn
         self.camera.runAction(cameraMoveAction)
@@ -333,7 +337,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         camera.vignettingIntensity = 1
         camera.vignettingPower = 1
         self.camera.camera = camera // lol
-        self.camera.position = SCNVector3Make(0, 0, 58)
         
         self.skyBoxes = [ SCNNode(geometry: SCNBox()), SCNNode(geometry: SCNBox()) ]
         
