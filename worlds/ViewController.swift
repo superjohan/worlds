@@ -272,7 +272,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             self.startButton.isUserInteractionEnabled = true
             self.startButton.alpha = 0
             self.startButton.isHidden = false
-            self.startButton.setTitle("tap anywhere to replay", for: UIControlState.normal)
+            self.startButton.setTitle("tap anywhere to replay\n\nit will be different this time", for: UIControlState.normal)
             
             UIView.animate(withDuration: 0.2, delay: 3, options: [], animations: {
                 self.startButton.alpha = 1
