@@ -39,11 +39,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     // MARK: - Private
     
     @objc private func startButtonTouched(button: UIButton) {
+        self.startButton.isUserInteractionEnabled = false
+
         UIView.animate(withDuration: 4, animations: {
             self.startButton.alpha = 0
         }, completion: { _ in
             self.endView.isHidden = true
-            self.startButton.isUserInteractionEnabled = false
             
             self.start()
         })
