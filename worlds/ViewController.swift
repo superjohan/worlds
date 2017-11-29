@@ -259,6 +259,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         if (flag) {
             self.sceneView.isHidden = true
             self.endView.isHidden = false
+            self.audioPlayer.prepareToPlay()
+            
+            self.startButton.isUserInteractionEnabled = true
+            self.startButton.alpha = 0
+            self.startButton.isHidden = false
+            
+            UIView.animate(withDuration: 0.2, delay: 3, options: [], animations: {
+                self.startButton.alpha = 1
+            }, completion: nil)
         }
     }
     
