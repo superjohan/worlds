@@ -54,6 +54,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     fileprivate func moveCamera() {
         let cameraDuration = TimeInterval(160)
         
+        self.camera.removeAllActions()
         self.camera.position = SCNVector3Make(0, 0, 58)
         self.camera.rotation = SCNVector4Zero
         
@@ -68,6 +69,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     fileprivate func rotateSkyboxes() {
         for skybox in self.skyBoxes {
+            skybox.removeAllActions()
             skybox.runAction(
                 SCNAction.repeatForever(
                     SCNAction.rotateBy(
@@ -83,6 +85,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     fileprivate func rotateSphereBoxes() {
         for boxNode in self.boxes {
+            boxNode.removeAllActions()
             boxNode.runAction(
                 SCNAction.repeatForever(
                     SCNAction.rotateBy(
