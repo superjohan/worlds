@@ -43,8 +43,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             self.startButton.alpha = 0
         }, completion: { _ in
             self.endView.isHidden = true
+            self.startButton.isUserInteractionEnabled = false
             
-            self.startButton.removeFromSuperview()
             self.start()
         })
     }
@@ -168,10 +168,17 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     fileprivate func start() {
         self.audioPlayer.play()
         
+        self.sceneView.isHidden = false
+        self.sceneView.alpha = 0
+        
         UIView.animate(withDuration: 10, animations: {
             self.sceneView.alpha = 1.0
         })
 
+        for label in self.labels {
+            label.text = ""
+        }
+        
         moveCamera()
         rotateSkyboxes()
         rotateSphereBoxes()
