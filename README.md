@@ -2,7 +2,7 @@
 
 a demo for iphone by dekadence.
 
-[watch the demo on your iphone!](https://itunes.apple.com/fi/app/the-jumalauta-collection/id1344164506?mt=8)
+[download the demo to your iphone!](https://itunes.apple.com/fi/app/the-jumalauta-collection/id1344164506?mt=8)
 
 [watch the demo on youtube!](https://www.youtube.com/watch?v=cI9C751w01E)
 
